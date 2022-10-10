@@ -35,7 +35,7 @@ refs.galleryContainer.addEventListener("click", onGalleryItemClick);
 
 function onGalleryItemClick(event) {
   event.preventDefault();
-  
+
   if (event.target.nodeName !== "IMG") {
     return;
   }
