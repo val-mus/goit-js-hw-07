@@ -3,8 +3,6 @@ import { galleryItems } from "./gallery-items.js";
 
 console.log(galleryItems);
 
-// Создание и рендер разметки по массиву данных galleryItems и предоставленному шаблону элемента галереи.
-
 const refs = {
   galleryContainer: document.querySelector(".gallery"),
 };
@@ -40,17 +38,22 @@ function onGalleryItemClick(event) {
     return;
   }
 
-  const modal = basicLightbox.create(`
-    <img src="${event.target.dataset.source}" width="800" height="600">
-`);
+  const modal = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: () => {
+        window.addEventListener("keydown", onEscKeyPressClosingModal, {
+          once: true,
+        });
+      },
+    }
+  );
 
-  modal.show();
-
-  window.addEventListener("keydown", onEscPressModalClose);
-
-  function onEscPressModalClose(event) {
+  function onEscKeyPressClosingModal(event) {
     if (event.code === "Escape") {
       modal.close();
     }
   }
+
+  modal.show();
 }
