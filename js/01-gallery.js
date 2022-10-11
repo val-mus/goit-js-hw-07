@@ -42,15 +42,14 @@ function onGalleryItemClick(event) {
     `<img src="${event.target.dataset.source}" width="800" height="600">`,
     {
       onShow: () => {
-        window.addEventListener("keydown", onEscKeyPressClosingModal, {
-          once: true,
-        });
+        window.addEventListener("keydown", onEscKeyPressClosingModal);
       },
     }
   );
 
   function onEscKeyPressClosingModal(event) {
     if (event.code === "Escape") {
+      window.removeEventListener("keydown", onEscKeyPressClosingModal);
       modal.close();
     }
   }
